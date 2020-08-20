@@ -1,7 +1,6 @@
 package ru.fireshine.testtask.logic.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import ru.fireshine.testtask.logic.model.Recipe;
+import ru.fireshine.testtask.logic.model.RecipePriority;
 
 public class RecipeDao implements IDao<Recipe> {
 	
@@ -70,7 +70,7 @@ public class RecipeDao implements IDao<Recipe> {
 					recipe.setDoctor(rs.getString("doctor"));
 					recipe.setDate(rs.getDate("createDate"));
 					recipe.setValidity(rs.getInt("validity"));
-					recipe.setPriority(rs.getString("priority"));
+					recipe.setPriority(RecipePriority.valueOf(rs.getString("priority")));
 					recipe.setDoctorId(rs.getLong("doctorId"));
 					recipe.setPatientId(rs.getLong("patientId"));
 					result.add(recipe);
@@ -97,7 +97,7 @@ public class RecipeDao implements IDao<Recipe> {
 					recipe.setDoctor(rs.getString("doctor"));
 					recipe.setDate(rs.getDate("createDate"));
 					recipe.setValidity(rs.getInt("validity"));
-					recipe.setPriority(rs.getString("priority"));
+					recipe.setPriority(RecipePriority.valueOf(rs.getString("priority")));
 					recipe.setDoctorId(rs.getLong("doctorId"));
 					recipe.setPatientId(rs.getLong("patientId"));
 				}
@@ -115,9 +115,9 @@ public class RecipeDao implements IDao<Recipe> {
 			ps.setString(1, recipe.getDescription());
 			ps.setString(2, recipe.getPatient());
 			ps.setString(3, recipe.getDoctor());
-			ps.setDate(4, new Date(recipe.getDate().getTime()));
+			ps.setDate(4, recipe.getDate());
 			ps.setInt(5, recipe.getValidity());
-			ps.setString(6, recipe.getPriority());
+			ps.setString(6, recipe.getPriority().toString());
 			ps.setLong(7, recipe.getDoctorId());
 			ps.setLong(8, recipe.getPatientId());
 			ps.execute();
@@ -133,9 +133,9 @@ public class RecipeDao implements IDao<Recipe> {
 			ps.setString(1, recipe.getDescription());
 			ps.setString(2, recipe.getPatient());
 			ps.setString(3, recipe.getDoctor());
-			ps.setDate(4, new Date(recipe.getDate().getTime()));
+			ps.setDate(4, recipe.getDate());
 			ps.setInt(5, recipe.getValidity());
-			ps.setString(6, recipe.getPriority());
+			ps.setString(6, recipe.getPriority().toString());
 			ps.setLong(7, recipe.getDoctorId());
 			ps.setLong(8, recipe.getPatientId());
 			ps.setLong(9, recipe.getId());

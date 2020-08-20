@@ -60,7 +60,7 @@ public class DoctorLayout extends VerticalLayout {
         Button addBtn = new Button("Добавить");
         addBtn.addClickListener(e -> {
         	grid.asSingleSelect().clear();
-            doctorForm.setDoctor(new Doctor());
+            doctorForm.setDoctor(Doctor.sampleDoctor());
             mainUI.addWindow(window);
         });
         

@@ -1,12 +1,21 @@
 package ru.fireshine.testtask.logic.model;
 
 public class Doctor {
-
-	private Long id = null;
-	private String firstName = "";
-	private String surName = "";
-	private String patronymic = "";
-	private String specialization = "";
+	
+	private Long id;
+	private String firstName;
+	private String surName;
+	private String patronymic;
+	private String specialization;
+	
+	public final static Doctor sampleDoctor() {
+		Doctor doctor = new Doctor();
+		doctor.setFirstName("Иван");
+		doctor.setPatronymic("Иванович");
+		doctor.setSurName("Иванов");
+		doctor.setSpecialization("Терапевт");
+		return doctor;
+	}
 	
 	/**
 	 * @return the id

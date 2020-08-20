@@ -1,9 +1,10 @@
 package ru.fireshine.testtask.web.forms;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import com.vaadin.data.Binder;
-import com.vaadin.data.converter.LocalDateToDateConverter;
 import com.vaadin.data.converter.StringToIntegerConverter;
 import com.vaadin.data.validator.RegexpValidator;
 import com.vaadin.data.validator.StringLengthValidator;
@@ -49,6 +50,22 @@ public class RecipeForm extends FormLayout {
     private Window window;
     private Binder<Recipe> binder = new Binder<>(Recipe.class);
     
+    private LocalDate getDate(Recipe recipe) {
+        return recipe.getDate().toLocalDate();
+    }
+
+    private void setDate(Recipe recipe, LocalDate localDate) {
+        recipe.setDate(Date.valueOf(localDate));
+    }
+    
+    private RecipePriority getPriorityForBind(Recipe recipe) {
+        return recipe.getPriority();
+    }
+
+    private void setPriorityForBind(Recipe recipe, RecipePriority priority) {
+        recipe.setPriority(priority);
+    }
+    
     public RecipeForm(RecipeLayout layout, Window window) {
     	this.layout = layout;
     	this.window = window;
@@ -76,8 +93,9 @@ public class RecipeForm extends FormLayout {
         				"Введите описание", 1, null))
         		.bind(Recipe::getDescription, Recipe::setDescription);
         binder.forField(createDate)
-        		.withConverter(new LocalDateToDateConverter())
-        		.bind(Recipe::getDate, Recipe::setDate);
+        		.withValidator(localDate -> localDate.compareTo(LocalDate.now()) <= 0,
+        				"Дата должна быть не позже текущей")
+        		.bind(this::getDate, this::setDate);
         binder.forField(validity)
         		.withValidator(new RegexpValidator(
         				"Введите срок действия в днях", "\\d+"))
@@ -85,14 +103,13 @@ public class RecipeForm extends FormLayout {
         				"Поле должно содержать только цифры"))
         		.bind(Recipe::getValidity, Recipe::setValidity);
         binder.forField(priority)
-        		.withConverter(RecipePriority::toString, RecipePriority::valueOf)
-        		.bind(Recipe::getPriority, Recipe::setPriority);
+        		.bind(this::getPriorityForBind, this::setPriorityForBind);
 
         save.addClickListener(e -> this.save());
         cancel.addClickListener(e -> window.close());
     }
     
-    public void setPatient(Recipe recipe) {
+    public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
         binder.setBean(recipe);
         Optional<Patient> recPatient = patientService.getById(recipe.getPatientId());

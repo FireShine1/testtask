@@ -1,19 +1,30 @@
 package ru.fireshine.testtask.logic.model;
 
-import java.time.Instant;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class Recipe {
 
-	private Long id = null;
-	private String description = "";
-	private String patient = "";
-	private String doctor = "";
-	private Date createDate = Date.from(Instant.now());
-	private Integer validity = 30;
-	private RecipePriority priority = RecipePriority.Normal;
-	private Long doctorId = -1L;
-	private Long patientId = -1L;
+	private Long id;
+	private String description;
+	private String patient;
+	private String doctor;
+	private Date createDate;
+	private Integer validity;
+	private RecipePriority priority;
+	private Long doctorId;
+	private Long patientId;
+	
+	public final static Recipe sampleRecipe() {
+		Recipe recipe = new Recipe();
+		recipe.setDescription("Парацетамол");
+		recipe.setDate(Date.valueOf(LocalDate.now()));
+		recipe.setPriority(RecipePriority.Normal);
+		recipe.setValidity(30);
+		recipe.setPatientId(0L);
+		recipe.setDoctorId(0L);
+		return recipe;
+	}
 	
 	/**
 	 * @return the id
@@ -102,15 +113,15 @@ public class Recipe {
 	/**
 	 * @return the priority
 	 */
-	public String getPriority() {
-		return priority.toString();
+	public RecipePriority getPriority() {
+		return priority;
 	}
 	
 	/**
 	 * @param priority the priority to set
 	 */
-	public void setPriority(String priority) {
-		this.priority = RecipePriority.valueOf(priority);
+	public void setPriority(RecipePriority priority) {
+		this.priority = priority;
 	}
 
 	/**

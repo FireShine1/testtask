@@ -53,14 +53,14 @@ public class RecipeLayout extends VerticalLayout {
         Button addBtn = new Button("Добавить");
         addBtn.addClickListener(e -> {
         	grid.asSingleSelect().clear();
-        	recipeForm.setPatient(new Recipe());
+        	recipeForm.setRecipe(Recipe.sampleRecipe());
             mainUI.addWindow(window);
         });
         
         Button updBtn = new Button("Изменить");
         updBtn.addClickListener(e -> {
         	Iterator<Recipe> it = grid.getSelectedItems().iterator();
-        	recipeForm.setPatient(it.next());
+        	recipeForm.setRecipe(it.next());
         	mainUI.addWindow(window);
         });
         
@@ -94,6 +94,7 @@ public class RecipeLayout extends VerticalLayout {
         descriptionFiltering.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         
         filterPriority.setItems(RecipePriority.values());
+        filterPriority.setEmptySelectionCaption("All");
         CssLayout priorityFiltering = new CssLayout();
         priorityFiltering.addComponents(filterPriority);
         priorityFiltering.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);

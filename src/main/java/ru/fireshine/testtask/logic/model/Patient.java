@@ -2,11 +2,20 @@ package ru.fireshine.testtask.logic.model;
 
 public class Patient {
 
-	private Long id = null;
-	private String firstName = "";
-	private String surName = "";
-	private String patronymic = "";
-	private String phoneNumber = "";
+	private Long id;
+	private String firstName;
+	private String surName;
+	private String patronymic;
+	private String phoneNumber;
+	
+	public final static Patient samplePatient() {
+		Patient patient = new Patient();
+		patient.setFirstName("Иван");
+		patient.setPatronymic("Иванович");
+		patient.setSurName("Иванов");
+		patient.setPhoneNumber("+77777777777");
+		return patient;
+	}
 	
 	/**
 	 * @return the id
