@@ -18,7 +18,7 @@
 		<vaadin.plugin.version>8.9.3</vaadin.plugin.version>
 		<jetty.plugin.version>9.3.9.v20160517</jetty.plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<hsqldb.version>2.5.0</hsqldb.version>
+		<hsqldb.version>2.7.1</hsqldb.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<!-- If there are no local customizations, this can also be "fetch" or "cdn" -->
